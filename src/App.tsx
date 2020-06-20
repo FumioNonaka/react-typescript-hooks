@@ -1,4 +1,9 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, {
+	useState,
+	 useEffect,
+	 useCallback,
+	 ChangeEvent,
+ } from 'react';
 import './App.css';
 
 const layoutAreaStyle = {
@@ -14,18 +19,21 @@ function App() {
 		boxShadow: 'inset -1px -1px #0275b8',
 		opacity: 0.4
 	};
-	const getBoxCount = () => {
+	const getBoxCount = useCallback(() => {
 		const countX = Math.floor(layoutAreaStyle.width / boxSize) + 1;
 		const countY = Math.floor(layoutAreaStyle.height / boxSize) + 1;
 		return countX * countY;
-	};
+	}
+	, [boxSize]);
 	const [boxCount, setBoxCount] = useState(getBoxCount());
 	const boxSizeChanged = (event: ChangeEvent) => {
 		const numberInput = event.currentTarget as HTMLInputElement;
 		const newBoxSize = parseInt(numberInput.value, 10);
 		setBoxSize(newBoxSize);
-		setBoxCount(getBoxCount);
 	};
+	useEffect(() => {
+		setBoxCount(getBoxCount);
+	}, [getBoxCount]);
 	return (
 		<div className="App">
 			<header className="App-header">
