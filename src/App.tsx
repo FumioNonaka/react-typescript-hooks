@@ -14,17 +14,17 @@ function App() {
 		boxShadow: 'inset -1px -1px #0275b8',
 		opacity: 0.4
 	};
-	const getBoxCount = () => {
+	const getBoxCount = (boxSize: number) => {
 		const countX = Math.floor(layoutAreaStyle.width / boxSize) + 1;
 		const countY = Math.floor(layoutAreaStyle.height / boxSize) + 1;
 		return countX * countY;
 	};
-	const [boxCount, setBoxCount] = useState(getBoxCount());
+	const [boxCount, setBoxCount] = useState(getBoxCount(boxSize));
 	const boxSizeChanged = (event: ChangeEvent) => {
 		const numberInput = event.currentTarget as HTMLInputElement;
 		const newBoxSize = parseInt(numberInput.value, 10);
 		setBoxSize(newBoxSize);
-		setBoxCount(getBoxCount);
+		setBoxCount(getBoxCount(newBoxSize));
 	};
 	return (
 		<div className="App">
